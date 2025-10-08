@@ -10,7 +10,6 @@ This pipeline replicates the functionality of a similar R project, utilizing mod
 ## 🚀 Live Dashboard (Example Placeholder)
 
 [👉 View Tableau Public Dashboard](#)  
-(*Insert your Tableau Public Dashboard link here once published!*)
 
 ---
 
@@ -57,3 +56,17 @@ The data is standardized into **five distinct sheets**, providing a robust relat
    ```bash
    git clone https://github.com/dhirthacker7/PL_Project.git
    cd PL_Project/PL_Pipeline
+   ```
+2. **Setup Environment & Install Libraries**
+  ``` bash
+  python -m venv venv
+  source venv/bin/activate
+  pip install -r requirements.txt
+  ```
+3. **Authentication**
+   Place your service_account_key.json file inside the PL_Pipeline folder
+
+4. **Run Locally**
+   ```bash
+   python main_pipeline.py
+   ```
