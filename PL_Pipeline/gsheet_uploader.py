@@ -3,8 +3,7 @@ from gspread_dataframe import set_with_dataframe
 import pandas as pd
 
 # --- CONFIGURATION ---
-SERVICE_ACCOUNT_FILE = 'service_account_key.json' # Must be in the root directory
-# !!! REPLACE THIS WITH YOUR SHEET KEY (from the URL) !!!
+SERVICE_ACCOUNT_FILE = 'service_account_key.json'
 SPREADSHEET_KEY = '15pL_p-LVDftcb9rBPMJcyjuDaxg851N5k6ZiMcsHLQI' 
 # ---------------------
 
