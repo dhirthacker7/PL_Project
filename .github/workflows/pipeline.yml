@@ -1,0 +1,54 @@
+name: FPL Daily Data Pipeline
+
+# Defines the trigger events for the workflow
+on:
+  schedule:
+    # Runs every day at 10:00 AM UTC (cron syntax: minute hour day(month) month day(week))
+    - cron: '0 10 * * *' 
+  # Allows manual triggering from the GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  run_pipeline:
+    # Uses the latest Ubuntu runner
+    runs-on: ubuntu-latest
+    
+    # Define environment variables available to all steps in this job
+    env:
+      # CRITICAL: This is your Google Sheet Key.
+      SPREADSHEET_KEY: 15pL_p-LVDftcb9rBPMJcyjuDaxg851N5k6ZiMcsHLQI
+
+    steps:
+      - name: Checkout Repository
+        # Action to pull your code into the runner environment
+        uses: actions/checkout@v4
+        
+      - name: Set up Python 3.11
+        # Action to set up Python 3.x
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies
+        # The requirements.txt file MUST be in the PL_Pipeline folder
+        run: |
+          # Change directory into the PL_Pipeline folder 
+          cd PL_Pipeline
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: Create Service Account Key File
+        # This securely recreates the service_account_key.json file using the 
+        # content stored in the GitHub Secret GOOGLE_CREDENTIALS.
+        run: |
+          cd PL_Pipeline
+          echo "$SERVICE_ACCOUNT_JSON" > service_account_key.json
+        # IMPORTANT: This env block only applies to THIS step, pulling the secret value
+        env:
+          SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_CREDENTIALS }}
+
+      - name: Run Python Data Pipeline
+        run: |
+          # Execute the main orchestration script
+          cd PL_Pipeline
+          python main_pipeline.py

@@ -1,0 +1,43 @@
+------------------------------------
+1. Virtual Environment (CRITICAL)
+------------------------------------
+pl_env/
+
+Common venv directory names
+venv/
+env/
+*.egg-info/
+
+------------------------------------
+2. Secret Files (CRITICAL)
+------------------------------------
+Your service account key file MUST NOT be committed
+PL_Pipeline/service_account_key.json
+
+Other common secret files
+*.key
+*.pem
+*.secret
+.env
+
+------------------------------------
+3. Python Bytecode and Cache
+------------------------------------
+pycache/
+*.pyc
+.pytest_cache/
+.coverage
+
+------------------------------------
+4. Operating System Files
+------------------------------------
+macOS
+.DS_Store
+
+Windows
+Thumbs.db
+
+------------------------------------
+5. IDE Files (VS Code)
+------------------------------------
+.vscode/
