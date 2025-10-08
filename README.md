@@ -59,11 +59,12 @@ The data is standardized into **five distinct sheets**, providing a robust relat
    ```
    
 2. **Setup Environment & Install Libraries**
-  ``` bash
-  python -m venv venv
-  source venv/bin/activate
-  pip install -r requirements.txt
-  ```
+   ``` bash
+   python -m venv venv
+   source venv/bin/activate
+   pip install -r requirements.txt
+   ```
+
 3. **Authentication**
    Place your service_account_key.json file inside the PL_Pipeline folder
 
