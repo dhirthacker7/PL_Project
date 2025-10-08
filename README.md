@@ -65,7 +65,7 @@ The data is standardized into **five distinct sheets**, providing a robust relat
    pip install -r requirements.txt
    ```
 
-3. **Authentication** <br> <br>
+3. **Authentication** <br>
      Place your service_account_key.json file inside the PL_Pipeline folder
 
 4. **Run Locally**
