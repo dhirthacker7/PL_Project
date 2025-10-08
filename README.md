@@ -66,7 +66,7 @@ The data is standardized into **five distinct sheets**, providing a robust relat
    ```
 
 3. **Authentication**
-   Place your service_account_key.json file inside the PL_Pipeline folder
+     Place your service_account_key.json file inside the PL_Pipeline folder
 
 4. **Run Locally**
    ```bash
