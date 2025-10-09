@@ -5,3 +5,4 @@ lxml
 gspread
 tqdm
 gspread-dataframe
+python-dotenv
