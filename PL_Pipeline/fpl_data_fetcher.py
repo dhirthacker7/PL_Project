@@ -3,10 +3,7 @@ import pandas as pd
 from tqdm import tqdm
 
 def fetch_static_data():
-    """
-    Fetches the main static data (players, teams) from the FPL API.
-    Returns player data, team lookup data, and gameweeks data.
-    """
+    """Fetches the main static data from the FPL API, including Teams Lookup."""
     url = "https://fantasy.premierleague.com/api/bootstrap-static/"
     response = requests.get(url)
     response.raise_for_status() 
@@ -14,20 +11,17 @@ def fetch_static_data():
     
     # Extract key components into DataFrames
     elements_df = pd.DataFrame(data['elements'])
-    teams_df = pd.DataFrame(data['teams'])
+    teams_df = pd.DataFrame(data['teams']) # This is the dynamic Teams_Lookup table
     gameweeks_df = pd.DataFrame(data['events'])
     
-    # 1. Player Data: Keep the team ID (number) as Tableau will join to the Teams_Lookup table
+    # Select essential player columns for Player_Static table
     player_data = elements_df[['id', 'web_name', 'first_name', 'second_name', 
                                'element_type', 'team', 'total_points', 'now_cost', 
-                               'form', 'selected_by_percent', 'transfers_in']]
-    
-    # 2. Teams Lookup Data: Prepare the clean lookup table
-    teams_lookup_df = teams_df[['id', 'name', 'short_name']]
-    teams_lookup_df = teams_lookup_df.rename(columns={'id': 'team_id', 'name': 'team_name'})
+                               'form', 'selected_by_percent', 'transfers_in', 
+                               'goals_scored', 'assists', 'bonus', 'yellow_cards', 'red_cards']]
     
     print("Static data fetched successfully.")
-    return player_data, teams_lookup_df, gameweeks_df
+    return player_data, teams_df, gameweeks_df
 
 def fetch_fixtures():
     """Fetches all past and future fixture data."""
@@ -50,11 +44,13 @@ def fetch_player_historic_data(player_data_df):
         
         try:
             response = requests.get(url)
+            
             if response.status_code == 200:
                 data = response.json()
             else:
                 raise requests.HTTPError(f"Status Code: {response.status_code}")
 
+            # Check for 'history_past' (Historic Seasons data)
             if 'history_past' in data and len(data['history_past']) > 0:
                 df = pd.DataFrame(data['history_past'])
                 df['player_id'] = player_id

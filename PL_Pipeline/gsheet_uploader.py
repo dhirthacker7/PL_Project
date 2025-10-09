@@ -1,10 +1,23 @@
 import gspread
 from gspread_dataframe import set_with_dataframe
 import pandas as pd
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file (for local development)
+load_dotenv()
 
 # --- CONFIGURATION ---
 SERVICE_ACCOUNT_FILE = 'service_account_key.json'
-SPREADSHEET_KEY = '15pL_p-LVDftcb9rBPMJcyjuDaxg851N5k6ZiMcsHLQI' 
+
+# Get spreadsheet key from environment variable
+SPREADSHEET_KEY = os.getenv('SPREADSHEET_KEY')
+
+if not SPREADSHEET_KEY:
+    raise ValueError(
+        "SPREADSHEET_KEY not found in environment variables. "
+        "Please set it in your .env file or as an environment variable."
+    )
 # ---------------------
 
 def authenticate_gsheets():

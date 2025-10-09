@@ -9,8 +9,8 @@ def main():
     
     # 1. API Data Acquisition
     try:
-        # Capture the new teams_lookup_df (the dedicated team ID to Team Name mapping)
-        player_data, teams_lookup_df, gameweeks_df = fetch_static_data() 
+        # teams_lookup_df is now returned here
+        player_data, teams_lookup_df, gameweeks_df = fetch_static_data()
         fixtures_df = fetch_fixtures()
         historic_df = fetch_player_historic_data(player_data)
         
@@ -18,11 +18,9 @@ def main():
         print(f"A critical error occurred during primary data fetching: {e}")
         sys.exit(1)
         
-    # 2. Web Scraping
+    # 2. Web Scraping (Now fixed to return clean Points)
     standings_df = scrape_standings()
 
-    # skipping data merging here as the final joining is handled in Tableau.
-    
     # 3. Google Sheets Persistence
     gc = authenticate_gsheets()
     
@@ -30,9 +28,9 @@ def main():
     data_to_upload = [
         (historic_df, 'Historic_Seasons'),
         (player_data, 'Player_Static'),
-        (teams_lookup_df, 'Teams_Lookup'), # <--- NEW TABLE ADDED FOR TABLEAU JOINING
         (fixtures_df, 'Fixtures'),
-        (standings_df, 'Standings')
+        (standings_df, 'Standings'), # This is the sheet that is now clean
+        (teams_lookup_df, 'Teams_Lookup') # This is the dynamic lookup table
     ]
     
     for df, name in data_to_upload:
