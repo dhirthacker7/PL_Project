@@ -50,6 +50,13 @@ def upload_dataframe_to_gsheet(df, sheet_name, gc):
         worksheet.clear()
         set_with_dataframe(worksheet, df, include_index=False)
         
+        # Make the header row bold
+        worksheet.format('1:1', {
+            'textFormat': {
+                'bold': True
+            }
+        })
+        
         print(f"Successfully uploaded data to Google Sheet: Tab '{sheet_name}'")
         
     except Exception as e:
