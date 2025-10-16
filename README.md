@@ -7,12 +7,6 @@ This pipeline replicates the functionality of a similar R project, utilizing mod
 
 ---
 
-## 🚀 Live Dashboard (Example Placeholder)
-
-[👉 View Tableau Public Dashboard](#)  
-
----
-
 ## ✨ Project Architecture & Automation
 
 The entire pipeline is orchestrated by **GitHub Actions** and runs **daily** to ensure data is fresh for the connected visualization layer.
