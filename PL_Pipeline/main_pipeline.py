@@ -30,7 +30,8 @@ def main():
         (player_data, 'Player_Static'),
         (fixtures_df, 'Fixtures'),
         (standings_df, 'Standings'), # This is the sheet that is now clean
-        (teams_lookup_df, 'Teams_Lookup') # This is the dynamic lookup table
+        (teams_lookup_df, 'Teams_Lookup'), # This is the dynamic lookup table
+        (gameweeks_df, 'Gameweeks')
     ]
     
     for df, name in data_to_upload:
